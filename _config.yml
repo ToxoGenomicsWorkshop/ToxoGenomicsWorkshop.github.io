@@ -1,0 +1,12 @@
+# Site settings
+title: CHMI Workshop -- Interrogating the Transcriptome
+email: beiting@vet.upenn.edu
+description: > # this means to ignore newlines until "baseurl:"
+  The website for the PennVet Transcriptomics Workshop, taught by Dan Beiting in the Spring of 2015.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://transcriptomicsworkshop.github.io" # the base hostname & protocol for your site
+twitter_username: hostmicrobe
+github_username:  dpbisme
+
+# Build settings
+markdown: kramdown
