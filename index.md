@@ -37,9 +37,7 @@ Time	|	Description	|
 ***1. Your laptop computer***<br/>
 Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
-
 ***2. A "toolbox" of free software***<br/>
-
 * Download and install the appropriate version of the [R Programming Language](http://lib.stat.cmu.edu/R/CRAN/) for your operating system
 * Download and install the graphical user interface for R, called [RStudio](http://www.rstudio.com/products/rstudio/download/)
 * Download a text editor. I use [TextWrangler](http://www.barebones.com/products/textwrangler/) (Mac only) and [Sublime](http://www.sublimetext.com/) (Mac and PC)
@@ -47,15 +45,12 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 
 
 ***3. some sample data***<br/>
-
 * We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  
 * The original raw data is available on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __DO NOT__ need to download this.  
 * Please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file]() that describes the design of the study
 
-***4. An analysis script***<br/>
-
-* [Here]() is the R script that we'll use in the workshop. Once you have downloaded 
+***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [Here]().
 
 -----
 
