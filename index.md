@@ -52,13 +52,11 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 * We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  
 * The original raw data is available on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __DO NOT__ need to download this.  
 * Please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
-* In addition to the data, please download this simple [text file] that describes the design of the study
+* In addition to the data, please download this simple [text file]() that describes the design of the study
 
 **4. An analysis script**<br/>
 
-* We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  
-* The original raw data is available on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __do not__ need to download this.  
-* We've already summarized this raw data as a 'digital gene expression list' (DGEList), which you can download from [here](materials/DGEList)
+* [Here]() is the R script that we'll use in the workshop. Once you have downloaded 
 
 -----
 
