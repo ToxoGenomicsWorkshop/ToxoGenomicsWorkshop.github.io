@@ -27,7 +27,6 @@ Time	|	Description	|
 5:00-7:00pm	|	Cocktails, lite bites, etc
 
 
-
 ----
 
 
@@ -60,7 +59,7 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 
 -----
 
-### Other useful software no required for this course (but useful should you decide to move forward on your own)
+### After the workshop
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system, such as SVN or [Git](http://git-scm.com/downloads)
@@ -74,26 +73,6 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 ### Lecture Slides and Code
 
 A PDF copy of the lecture slides can be downloaded [here](materials/ToxoRNAseqWorkshop.pdf).
-
-
-----
-
-### R Scripts
-
-The lectures will be paired with R scripts which will 'step' through the process of analyzing transcriptional profiling data from microarray and RNAseq experiments
-
-----
-
-Script	|	Name	|	Relevant R packages (and functions)	|
-:------:|---------|:-----------:|
-1	|	[Step1_preprocessAffy.R](R_scripts/Step1_preprocessAffy.R) 	|	Oligo, annotate, platform-specific annotation database
-2	|	[Step1_preprocessLumi.R](R_scripts/Step1_preprocessLumi.R)	|	Lumi, annotate, platform-specific annotation database
-3	|	[Step1_preprocessRNAseq.R](R_scripts/Step1_preprocessRNAseq.R) 	|	ShortRead (buildIndex, align, featureCounts), edgeR, Limma, biomaRt
-4	|	[Step2_dataExploration_part1.R](R_scripts/Step2_dataExploration_part1.R) 	|	base R (dist, hclust, prcomp), ggplot2, reshape2
-5	|	[Step3_dataExploration_part3.R](Step3_dataExploration_part3.R)  	|	dplyr (filter, arrange, select), ggplot2, ggviz
-6	|	[Step4_diffGenes.R](Step4_diffGenes.R)  	|	Limma (topTable and DecideTests),
-7	|	[Step5_heatmap.R](Step5_heatmap.R) 	|	heatmap.2
-
 
 ----
 
