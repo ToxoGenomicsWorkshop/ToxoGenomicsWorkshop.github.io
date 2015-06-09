@@ -1,6 +1,6 @@
 README
 =====
 
-This is the GitHub repository for a graduate level workshop in transcriptomics and bioinformatics at the University of Pennsylvania. This workshop is part of a larger mission by the Center for Host-Microbial Interactions (CHMI) to advance bioinformatics skill-sets within and outside of the UPenn School of Veterinary Medicine. 
+This is the GitHub repository for a workshop on Bioinformatics for RNAseq data, held as part of the 13th International Congress on Toxoplasmosis and T. gondii Biology (Gettysburg, PA, June 17-21, 2015).
 
 

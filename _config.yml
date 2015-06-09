@@ -1,10 +1,10 @@
 # Site settings
-title: CHMI Workshop -- Interrogating the Transcriptome
-email: beiting@vet.upenn.edu
+title: Toxoplasma Pre-conference Genomics Workshop - RNAseq data analysis
+email: beiting@vet.upenn.edu and oharb@sas.upenn.edu
 description: > # this means to ignore newlines until "baseurl:"
-  The website for the PennVet Transcriptomics Workshop, taught by Dan Beiting in the Spring of 2015.
+  The website for the Toxoplasma , taught by Dan Beiting and Omar Harb in the Summer of 2015.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://transcriptomicsworkshop.github.io" # the base hostname & protocol for your site
+url: "http://ToxoGenomicsWorkshop.github.io" # the base hostname & protocol for your site
 twitter_username: hostmicrobe
 github_username:  dpbisme
 
