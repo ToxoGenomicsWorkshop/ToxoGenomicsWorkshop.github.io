@@ -5,11 +5,10 @@ layout: page
 ### Introduction
 This is the GitHub repository for the Toxoplasma Conference RNAseq Workshop. Goals of this workshop include:
 
-* understand how RNAseq data is generated and how the raw data is processed (for practical reasons, we will dicuss but not demonstrate this)
-* learn to use the R programming language to manage and analyze data (hands-on)
-* Apply these methods to analyze RNAseq data comparing...
+* gain an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will dicuss but not demonstrate this)
+* learn to use the R programming language to manage and analyze data (hands-on with example dataset)
 
-***Motivation for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge  analyzing and interpreting large-scale datasets, as well data being continuously made in the public domain.  Research in Toxoplasma has mine large data sets.  Once a problem specific to genomics, the issue of 'big data' is becoming ubiquitous, as everything from microscopy to flow cytometry to gene expression profiling produce  This workshop provides students and postdocs with an opportunity to begin developing the skills necessary to analyze, summarize and present the results of RNAseq experiments.  The workshop will be run as a hands-on tutorial using a real data-set  
+***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge  analyzing and interpreting large-scale datasets, as well data being continuously made in the public domain.  Research in Toxoplasma has mine large data sets.  Once a problem specific to genomics, the issue of 'big data' is becoming ubiquitous, as everything from microscopy to flow cytometry to gene expression profiling produce  This workshop provides students and postdocs with an opportunity to begin developing the skills necessary to analyze, summarize and present the results of RNAseq experiments.  The workshop will be run as a hands-on tutorial using a real data-set  
 
 
 ### Workshop Outline
@@ -21,7 +20,7 @@ Time	|	Description	|
 10:30-11:00am	|	Break
 11:00-12:30am	|	Analyzing RNAseq data - Part II
 12:30-2:00pm	|	Lunch with discussion of alternative career paths
-3:00-5:00pm	|	Understanding RNAseq data in the context of the genome browser
+2:00-5:00pm	|	Understanding RNAseq data in the context of the genome browser
 5:00-7:00pm	|	Cocktails, lite bites, etc
 
 
@@ -31,18 +30,25 @@ Time	|	Description	|
 
 ### Preparing for the workshop
 
-Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
+There are really three main things you will need for the workshop
 
-Before the first class, each of you will need to attempt to complete the following steps.<br/>
-Please email me if you run into problems with any of these tasks.<br/>
-All software listed below is free and open-source
+**1. A toolbox of free software**
 * If you have a Mac, download the latest version of [XCode](https://developer.apple.com/xcode/) developer tools
 * Download and install the appropriate version of the [R Programming Language](http://lib.stat.cmu.edu/R/CRAN/) for your operating system
 * Download and install the graphical user interface for R, called [RStudio](http://www.rstudio.com/products/rstudio/download/)
 * Download a text editor. I use [TextWrangler](http://www.barebones.com/products/textwrangler/) (Mac only) and [Sublime](http://www.sublimetext.com/) (Mac and PC)
 
+**2. 
+Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
-Other useful software:
+Before the first class, each of you will need to attempt to complete the following steps.<br/>
+Please email me if you run into problems with any of these tasks.<br/>
+All software listed below is free and open-source
+
+-----
+
+### Other useful software
+
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system, such as SVN or [Git](http://git-scm.com/downloads)
 * Sign-up for a free account on [GitHub](https://github.com/), and email me your username.
@@ -55,41 +61,14 @@ Other useful software:
 ### Example Data
 
 We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  You can find the original raw data on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __DO NOT__ need to download this, as it is a huge file.
-----
 
-
-### Lecture Slides
-
-A PDF copy of the lecture slides can be downloaded [here](materials/ToxoRNAseqWorkshop.pdf)
 
 ----
 
 
-Class	|	Date	|	Topic	|	Reading	|
-:------:|:---------:|-----------|:---------:|
-1	|	4/1	|	__Introduction to transcriptomics data and platforms__ ([keynote](lectures/Lecture1_TechIntro.key),[pdf](lectures/Lecture1_TechIntro.pdf))
-2	|	4/8	|	__Introduction to [R](http://www.r-project.org/), [RStudio](http://www.rstudio.com/), and [Git](http://git-scm.com/)__ ([keynote](lectures/Lecture2_ToolsIntro.key),[pdf](lectures/Lecture2_ToolsIntro.pdf)) | [1](https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf)
-3	|	4/15	|	__Version control with Git, [GitHub](https://github.com/), and RStudio__ ([keynote](lectures/Lecture3_Git.key),[pdf](lectures/Lecture3_Git.pdf))	| [1](http://TranscriptomicsWorkshop.github.io/lectures/chocolateMuffin.txt), [2](http://TranscriptomicsWorkshop.github.io/lectures/Git_instructions.pdf)
-4	|	4/22	|	__Preprocessing and normalizing microarray and RNAseq data__ ([keynote](lectures/Lecture4_preprocessing.key),[pdf](lectures/Lecture4_preprocessing.pdf))
-5	|	4/29	|	__Exploratory analysis of expression data (gene-agnostic)__	| [1](http://shinyapps.stat.ubc.ca/r-graph-catalog/)
-	|			|	* _defining variables in a study design file_
-	|			|	* _viewing sample relationships with dist and hclust functions_ 
-	|			|	* _using the prcomp function to carry out a principal component analysis_
-	|			|	* _using [ggplot2](http://ggplot2.org/) to visualize your PCA analysis_
-	|			|	* _using PCA 'loadings' to examine the relationship between samples and principal components_
-6	|	5/6	|	__Visual analysis of gene expression data__| [1](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-	|		|	* _using [dplyr's](http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) mutate, sort and filter commands to edit data tables_
-	|		|	* _static and interactive scatter plots using ggplot2 and [ggvis](http://ggvis.rstudio.com/)_
-7 | 5/20 | __Identifying differentially expressed genes__
-  |		| * _using the [Limma](http://www.bioconductor.org/packages/release/bioc/html/limma.html) package_ | [1](http://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf), [2](http://www.statsci.org/smyth/pubs/VoomPreprint.pdf)
-  |		| * _P values, false discovery rates, and volcano plots_
-8 | 5/27  | __Visualizing and dissecting your differentially expressed gene list__
-9 | 6/10  | __Understanding and leveraging [Gene Ontology](http://geneontology.org/) for function enrichment analyses__ | [1](http://david.abcc.ncifcrf.gov/), [2](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2615629/)
-10 | 6/16?  | __Gene Set Enrichment Analysis ([GSEA](http://www.broadinstitute.org/gsea/index.jsp)) and gene [signatures](http://www.broadinstitute.org/gsea/msigdb/index.jsp)__ | [1](http://mootha.med.harvard.edu/PubPDFs/Subramanian2005.pdf), [2](http://bioinf.wehi.edu.au/software/MSigDB/)
-11  | TBD | __Beyond gene lists, to network topology using [Cytoscape](http://www.cytoscape.org/)__ | [1](http://healthsciences.ucsd.edu/som/medicine/research/labs/ideker/publications/Documents/saito_NatMethod_2012.pdf)
-12  | TBD  | __Deploying results as interactive graphics using D3.j and [Shiny](http://shiny.rstudio.com/)__ | [1](http://shiny.rstudio.com/articles/cheatsheet.html)
-13  | TBD  | __Making your anaysis pipeline transparent and reproducible using [R Markdown](http://rmarkdown.rstudio.com/) and [Knitr](http://yihui.name/knitr/)__ | [1](http://rmarkdown.rstudio.com/RMarkdownCheatSheet.pdf)
-14  | TBD | __Final analysis reports due (in Markdown)__
+### Lecture Slides and Code
+
+A PDF copy of the lecture slides can be downloaded [here](materials/ToxoRNAseqWorkshop.pdf).
 
 
 ----
@@ -114,7 +93,7 @@ Script	|	Name	|	Relevant R packages (and functions)	|
 ----
 
 
-### Additional Optional Reading
+### Optional Reading
 
 * **Introductory Statistics with R** by Peter Dalgaard [ [pdf](http://www.academia.dk/BiologiskAntropologi/Epidemiologi/PDF/Introductory_Statistics_with_R__2nd_ed.pdf), [Amazon](http://www.amazon.com/Introductory-Statistics-R-Computing/dp/0387954759) ]  
 * **The Art of R programming** by Norman Matloff [ [pdf](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCAQFjAA&url=http%3A%2F%2Fsens.tistory.com%2Fattachment%2Fcfile8.uf%402375DC3D515423F9110CA1.pdf&ei=E-8FVO6dAYmnggSttoD4Bg&usg=AFQjCNE1UmWRG3i9ugNDSXN2WjRSTkkUjA&sig2=U958L8LG42vuhHdPKKBHHw&bvm=bv.74115972,d.eXY), [Amazon](http://www.amazon.com/Art-Programming-Statistical-Software-Design/dp/1593273843/ref=sr_1_1?s=books&ie=UTF8&qid=1409674972&sr=1-1&keywords=the+art+of+r+programming) ]  
