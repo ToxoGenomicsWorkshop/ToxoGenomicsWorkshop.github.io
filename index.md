@@ -14,7 +14,7 @@ This is the GitHub repository for the Toxoplasma Conference RNAseq Workshop. Goa
 ----
 
 
-### Workshop Outline
+### Workshop Schedule
 
 Time	|	Description	|
 :------:|---------|
@@ -32,13 +32,13 @@ Time	|	Description	|
 
 ### Preparing for the workshop
 
-There are really three main things you will need for the workshop
+**There are really three main things you will need for the workshop**
 
-**1. Your laptop computer**<br/>
+***1. Your laptop computer***<br/>
 Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
 
-**2. A "toolbox" of free software**<br/>
+***2. A "toolbox" of free software***<br/>
 
 * Download and install the appropriate version of the [R Programming Language](http://lib.stat.cmu.edu/R/CRAN/) for your operating system
 * Download and install the graphical user interface for R, called [RStudio](http://www.rstudio.com/products/rstudio/download/)
@@ -46,20 +46,22 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 * If you have a Mac, download the latest version of [XCode](https://developer.apple.com/xcode/) developer tools
 
 
-**3. some sample data**<br/>
+***3. some sample data***<br/>
 
 * We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  
 * The original raw data is available on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __DO NOT__ need to download this.  
 * Please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file]() that describes the design of the study
 
-**4. An analysis script**<br/>
+***4. An analysis script***<br/>
 
 * [Here]() is the R script that we'll use in the workshop. Once you have downloaded 
 
 -----
 
 ### After the workshop
+
+***if you find this workshop interesting, you may want to consider downloading and learning about the following tools***
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system, such as SVN or [Git](http://git-scm.com/downloads)
