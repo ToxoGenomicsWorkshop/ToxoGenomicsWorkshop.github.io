@@ -5,10 +5,10 @@ layout: page
 ### Introduction
 This is the GitHub repository for the Toxoplasma Conference RNAseq Workshop. Goals of this workshop include:
 
-* gain an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will dicuss but not demonstrate this)
+* gain an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will discuss but not demonstrate this)
 * learn to use the R programming language to manage and analyze data (hands-on with example dataset)
 
-***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge  analyzing and interpreting large-scale datasets, as well data being continuously made in the public domain.  Research in Toxoplasma has mine large data sets.  Once a problem specific to genomics, the issue of 'big data' is becoming ubiquitous, as everything from microscopy to flow cytometry to gene expression profiling produce  This workshop provides students and postdocs with an opportunity to begin developing the skills necessary to analyze, summarize and present the results of RNAseq experiments.  The workshop will be run as a hands-on tutorial using a real data-set  
+***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge  analyzing and interpreting large-scale datasets, as well data being continuously made available in the public domain.  Research in Toxoplasma has mine large data sets.  Once a problem specific to genomics, the issue of 'big data' is becoming ubiquitous, as everything from microscopy to flow cytometry to gene expression profiling produce  This workshop provides students and postdocs with an opportunity to begin developing the skills necessary to analyze, summarize and present the results of RNAseq experiments.  The workshop will be run as a hands-on tutorial using a real data-set  
 
 
 ----
@@ -38,6 +38,7 @@ Time	|	Description	|
 Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
 ***2. A "toolbox" of free software***<br/>
+
 * Download and install the appropriate version of the [R Programming Language](http://lib.stat.cmu.edu/R/CRAN/) for your operating system
 * Download and install the graphical user interface for R, called [RStudio](http://www.rstudio.com/products/rstudio/download/)
 * Download a text editor. I use [TextWrangler](http://www.barebones.com/products/textwrangler/) (Mac only) and [Sublime](http://www.sublimetext.com/) (Mac and PC)
@@ -45,12 +46,13 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 
 
 ***3. some sample data***<br/>
+
 * We will be analyzing RNAseq data from this [2014 BMC Genomics paper](materials/Pittman_BMCgenomics_TgBrady.pdf) published by [Laura Knoll's lab](http://www.medmicro.wisc.edu/people_faculty_profile.php?id=ljknoll&view=intro).  
 * The original raw data is available on the Short Read Archive [here](http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1156954), but you __DO NOT__ need to download this.  
 * Please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file]() that describes the design of the study
 
-***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [Here]().
+***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [Here](materials/myAnalysis.R).
 
 -----
 
@@ -67,7 +69,7 @@ Everyone is encouraged to bring their own internet-enabled laptop equiped with e
 ----
 
 
-### Lecture Slides and Code
+### Lecture Slides
 
 A PDF copy of the lecture slides can be downloaded [here](materials/ToxoRNAseqWorkshop.pdf).
 
