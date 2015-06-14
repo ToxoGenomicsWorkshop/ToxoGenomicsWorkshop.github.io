@@ -5,11 +5,11 @@ layout: page
 ### Introduction
 This is the GitHub repository for the Toxoplasma Conference RNAseq Workshop. Goals of this workshop include:
 
-* gain an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will discuss but not demonstrate this)
-* learn to use the R programming language to manage and explore the data (hands-on with example dataset)
-* use ToxoDB to gain an understanding of how to 'read' RNAseq data in a genome browser (also hands-on)
+* gaining an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will discuss but not demonstrate this)
+* learning to use the R programming language to manage and explore the data (hands-on with example dataset)
+* using ToxoDB to to interpret RNAseq data in the context of a genome browser (also hands-on)
 
-***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge  analyzing and interpreting large-scale datasets, as well data being continuously made available in the public domain.  Research in Toxoplasma has mine large data sets.  Once a problem specific to genomics, the issue of 'big data' is becoming ubiquitous, as everything from microscopy to flow cytometry to gene expression profiling produce  This workshop provides students and postdocs with an opportunity to begin developing the skills necessary to analyze, summarize and present the results of RNAseq experiments.  The workshop will be run as a hands-on tutorial using a real data-set  
+***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry our forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
 
 
 ----
@@ -35,7 +35,7 @@ Time	|	Description	|
 
 ### Preparing for the workshop
 
-The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconductor; and 2) using the genome browser to view RNAseq data.  We encourage all attendees to bring their laptops to allow participation in the hands-on exercises.  **There are three main things you will need to do to particpate in the hands-on aspects of the workshop**
+The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconductor; and 2) using the genome browser to view RNAseq data.  We encourage all attendees to bring their laptops to allow participation in the hands-on exercises.  **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
 
 ***1. Your laptop computer***<br/> - Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
@@ -58,10 +58,10 @@ The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconduct
 
 ### After the workshop
 
-***if you find this workshop interesting, you may want to consider downloading and learning about the following tools***
+***Although it is beyond the scope of the current workshop, there are a number of other tools that you should consider downloading and learning more about.  These are essential tools in any data scientists repertoire.***
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
-* A version control system, such as SVN or [Git](http://git-scm.com/downloads)
+* A version control system such as [Git](http://git-scm.com/downloads)
 * A free account on [GitHub](https://github.com/)
 * The Java-based program for running [GSEA](http://www.broadinstitute.org/gsea/index.jsp). This requires that you sign-up for a free account. You may also need to update to the latest version of [Java](https://www.java.com/en/) for this application to run properly. 
 
@@ -71,7 +71,7 @@ The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconduct
 
 ### Lecture Slides
 
-After the workshop is over, you'll be able to access the lecture slides [here](materials/ToxoRNAseqWorkshop.pdf).
+After the workshop is over, you'll be able to access the lecture slides for Dan's portion [here](materials/ToxoRNAseqWorkshop.pdf) and Omar's portion [here](materials/ToxoRNAseqWorkshop.pdf).
 
 ----
 
