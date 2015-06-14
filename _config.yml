@@ -5,8 +5,8 @@ description: > # this means to ignore newlines until "baseurl:"
   The website for the Toxoplasma Genomics Workshop, taught by Dan Beiting and Omar Harb in the Summer of 2015.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://ToxoGenomicsWorkshop.github.io" # the base hostname & protocol for your site
-twitter_username: hostmicrobe (Dan) -  EupathDB (Omar)
-github_username:  dpbisme
+twitter_username:
+github_username:  
 
 # Build settings
 markdown: kramdown
