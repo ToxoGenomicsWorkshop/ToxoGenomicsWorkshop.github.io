@@ -24,7 +24,7 @@ The workshop will have two main components: 1) career perspectives from scientis
 
 Time	|	Description	|
 :------:|---------|
-7:00pm - whenever	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)
+7:00pm - whenever	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
 
 
 ***Wednesday*** - Gettysburg College, Science Center 200 
@@ -49,10 +49,10 @@ Time	|	Description	|
 
 Name	|	affiliation	|	topic	|
 :--------|:--------|:--------
-Eric Villegas, PhD	|	Environmental Protection Agency, USA 	|	Research opportunities in the Federal Agency (non NIH track)
-Robert Donald, PhD	|	Pfizer	|	Commercial R&D careers
-Omar Harb, PhD	|	UPenn	|	Alternative academic careers
-Dan Beiting, PhD	|	UPenn	|	Research-track academic careers
+Eric Villegas	|	EPA	|	Research opportunities in the Federal Agency
+Robert Donald	|	Pfizer	|	Commercial R&D careers
+Omar Harb	|	UPenn	|	Alternative academic careers
+Dan Beiting	|	UPenn	|	Research-track academic careers
 
 
 ----
