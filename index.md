@@ -48,7 +48,7 @@ Time	|	Description	|
 ### Panel discussion of alternative careers in basic research (over lunch)
 
 Name	|	affiliation	|	topic	|
-:------:|---------|:------:
+---------|---------|---------|
 Eric Villegas, PhD	|	Environmental Protection Agency, USA 	|	Research opportunities in the Federal Agency (non NIH track)
 Robert Donald, PhD	|	Pfizer	|	Commercial R&D careers
 Omar Harb, PhD	|	UPenn	|	Alternative academic careers
