@@ -35,7 +35,7 @@ Time	|	Description	|
 
 ### Preparing for the workshop
 
-The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconductor; and 2) using the genome browser to view RNAseq data.  We encourage all attendees to bring their laptops to allow participation in the hands-on exercises.  **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
+The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconductor (Dan Beiting, morning); and 2) using the genome browser to view RNAseq data (Omar Harb, afternoon).  We encourage all attendees to bring their laptops to allow participation in the hands-on exercises.  **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
 
 ***1. Your laptop computer***<br/> - Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
 
@@ -52,13 +52,13 @@ The workshop will have two basic parts: 1) analysing RNAseq data in R/bioconduct
 * The original raw data is available on the Short Read Archive [here](http://www.ebi.ac.uk/ena/data/view/SRP045423), but you __DO NOT__ need to download this.  Instead, please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file](materials/studyDesign.txt) that describes the design of the study
 
-***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [Here](materials/Toxo_RNAseq_analysis.R).
+***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [here](materials/Toxo_RNAseq_analysis.R).
 
 -----
 
 ### After the workshop
 
-***Although it is beyond the scope of the current workshop, there are a number of other tools that you should consider downloading and learning more about.  These are essential tools in any data scientists repertoire.***
+__Although it is beyond the scope of the current workshop, there are a number of other tools -- essential in any data scientists repertoire -- that you should consider downloading and learning more about.__
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system such as [Git](http://git-scm.com/downloads)
