@@ -30,7 +30,7 @@ Time	|	Description	|
 ***Wednesday*** - Gettysburg College, Science Center 200 
 
 Time	|	Description	|
-:------:|---------|
+:------:|:--------
 8:30-9:00am	|	Meet in College lecture room for data analysis workshop - introductions and overview
 9:00-10:30am	|	Introduction to RNAseq technology, data and tools
 10:30-10:45am	|	Short break
@@ -48,7 +48,7 @@ Time	|	Description	|
 ### Panel discussion of alternative careers in basic research (over lunch)
 
 Name	|	affiliation	|	topic	|
----------|---------|---------|
+:--------|:--------|:--------
 Eric Villegas, PhD	|	Environmental Protection Agency, USA 	|	Research opportunities in the Federal Agency (non NIH track)
 Robert Donald, PhD	|	Pfizer	|	Commercial R&D careers
 Omar Harb, PhD	|	UPenn	|	Alternative academic careers
