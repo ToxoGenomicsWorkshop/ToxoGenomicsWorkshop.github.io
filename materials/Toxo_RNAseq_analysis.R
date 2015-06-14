@@ -11,16 +11,16 @@ options(digits=2)
 #library(Biostrings)
 
 #read in your study design file
-targets <- read.delim("studyDesign.alt.txt", row.names=NULL)
+targets <- read.delim("studyDesign.txt", row.names=NULL)
 targets
 groups <- factor(paste(targets$strain, targets$stage, sep="."))
-pair <- factor(targets$batch)
+batch <- factor(targets$rep)
 #create some more human-readable labels for your samples using the info in this file
-sampleLabels <- paste(targets$strain, targets$stage, targets$replicate, sep=".")
+sampleLabels <- paste(targets$strain, targets$stage, targets$rep, sep=".")
 
 #set-up your experimental design
 design <- model.matrix(~0+groups)
-design2 <- model.matrix(~0+groups+pair)
+design2 <- model.matrix(~batch+groups)
 
 colnames(design) <- levels(groups)
 design
@@ -74,11 +74,10 @@ myGeneIDs <- DGEList$genes$GeneID
 #This will normalize based on the mean-variance relationship
 #will also generate the log2 of counts per million based on the size of each library (also a form of normalization)
 ##############################################################################################################################
-normData.unfiltered <- voom(DGEList, design, plot=TRUE)
+normData.unfiltered <- voom(DGEList, design2, plot=TRUE)
 exprs.unfiltered <- normData.unfiltered$E
-exprs.matrix.unfiltered <- as.matrix(exprs.unfiltered)
 #note that because you're now working with Log2 CPM, much of your data will be negative number (log2 of number smaller than 1 is negative) 
-head(exprs.matrix.unfiltered)
+head(exprs.unfiltered)
 
 #if you need RPKM for your unfiltered, they can generated as follows
 #Although RPKM are commonly used, not really necessary since you don't care to compare two different genes within a sample
@@ -93,11 +92,10 @@ cpm.matrix.filtered <- rowSums(cpm(DGEList) > 10) >= 2
 DGEList.filtered <- DGEList[cpm.matrix.filtered,]
 dim(DGEList.filtered)
 
-normData.filtered <- voom(DGEList.filtered, design, plot=TRUE)
+normData.filtered <- voom(DGEList.filtered, design2, plot=TRUE)
 exprs.filtered <- normData.filtered$E
-exprs.matrix.filtered <- as.matrix(exprs.filtered)
 #note that because you're now working with Log2 CPM, much of your data will be negative number (log2 of number smaller than 1 is negative) 
-head(exprs.matrix.filtered)
+head(exprs.filtered)
 
 rpkm.filtered <- rpkm(DGEList.filtered, DGEList.filtered$genes$Length) #if you prefer, can use 'cpm' instead of 'rpkm' here
 rpkm.filtered <- log2(rpkm.filtered + 1)
@@ -114,13 +112,6 @@ distance <- dist(t(rpkm.filtered),method="euclidean") # options for computing di
 clusters <- hclust(distance, method = "average") #options for clustering method: "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".
 plot(clusters, label=sampleLabels)
 
-library(limma)
-library(statmod)
-batch <- factor(targets$batch)
-corfit <- duplicateCorrelation(rpkm.filtered, design=design, block = batch)
-fit <- lmFit(rpkm.filtered, block = batch, cor = corfit$consensus)
-fit <- eBayes(fit)
-topTable(fit, adjust = "BH")
 ##############################################################################################################################
 #annotate your normalized data using the organism-specific database package
 ##############################################################################################################################
@@ -163,45 +154,51 @@ library(dplyr)
 library(ggvis)
 
 #clean-up data table
-colnames(resultTable.filtered) <- c("geneID", "symbol", "description", sampleLabels)
-colnames(resultTable.filtered)
+exprs.filtered.dataframe <- as.data.frame(exprs.filtered)
+colnames(exprs.filtered.dataframe)
+head(exprs.filtered.dataframe)
+colnames(exprs.filtered.dataframe) <- sampleLabels
+geneID <- rownames(exprs.filtered.dataframe)
 #use the dplyr 'mutate' command to get averages and fold changes for all your replicates
-myData <- mutate(resultTable.filtered,
-                 Ecdysone.vs.PBS_5hr_carcass = (ecdysone.5hr.carcass - PBS.5hr.carcass),
-                 Ecdysone.vs.PBS_18hr_carcass = (ecdysone.18hr.carcass - PBS.18hr.carcass),
-                 Ecdysone.vs.PBS_5hr_gut = (ecdysone.5hr.midgut - PBS.5hr.midgut),
-                 Ecdysone.vs.PBS_18hr_gut = (ecdysone.18hr.midgut - PBS.18hr.midgut))
+myData <- mutate(exprs.filtered.dataframe,
+                 #insert columns that average your replicates
+                 RH.tachy.AVG = (RH.tachy.rep1 + RH.tachy.rep2 + RH.tachy.rep3)/2,
+                 PLK.tachy.AVG = (PLK.tachy.rep1 + PLK.tachy.rep2 + PLK.tachy.rep3)/2,
+                 CTG.tachy.AVG = (CTG.tachy.rep1 + CTG.tachy.rep2 + CTG.tachy.rep3)/2,
+                 RH.brady.AVG = (RH.brady.rep1 + RH.brady.rep2 + RH.brady.rep3)/2,
+                 PLK.brady.AVG = (PLK.brady.rep1 + PLK.brady.rep2 + PLK.brady.rep3)/2,
+                 CTG.brady.AVG = (CTG.brady.rep1 + CTG.brady.rep2 + CTG.brady.rep3)/2,
+                 #now add fold-change columns based on the averages calculated above
+                 PLK.vs.RH.tachy = (PLK.tachy.AVG - RH.tachy.AVG),
+                 CTG.vs.RH.tachy = (CTG.tachy.AVG - RH.tachy.AVG),
+                 PLK.vs.CTG.tachy = (PLK.tachy.AVG - CTG.tachy.AVG),
+                 brady.vs.tachy.RH = (RH.brady.AVG - RH.tachy.AVG),
+                 brady.vs.tachy.PLK = (PLK.brady.AVG - PLK.tachy.AVG),
+                 brady.vs.tachy.CTG = (CTG.brady.AVG - CTG.tachy.AVG),
+                 geneID)
 
-
+#take a look at your new spreadsheet
+head(myData)
 #use dplyr "arrange" and "select" functions to sort by LogFC column of interest (arrange) 
 #and then display only the columns of interest (select) to see the most differentially expressed genes
 myData.sort <- myData %>%
-  arrange(desc(Ecdysone.vs.PBS_18hr_gut)) %>%
-  select(geneID, description, Ecdysone.vs.PBS_18hr_gut, Ecdysone.vs.PBS_18hr_carcass)
+  arrange(desc(brady.vs.tachy.PLK)) %>%
+  select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.sort)
 
 #use dplyr "filter" and "select" functions to pick out genes of interest (filter)
 #and again display only columns of interest (select)
+#filter based on specific Toxo gene IDs
 myData.filter <- myData %>%
-  filter(geneID=="AAEL010434" | geneID=="AAEL009600" | geneID == "AAEL001414") %>%
-  select(geneID, Ecdysone.vs.PBS_5hr_carcass, Ecdysone.vs.PBS_18hr_carcass, Ecdysone.vs.PBS_5hr_gut, Ecdysone.vs.PBS_18hr_gut)
+  filter(geneID=="TGME49_207130" | geneID=="TGME49_208130") %>%
+  select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.filter)
 
+#filtering based on expression level or fold change
 myData.filter <- myData %>%
   filter((abs(Ecdysone.vs.PBS_18hr_gut) >= 1) | (abs(Ecdysone.vs.PBS_5hr_gut) >= 1))%>%
-  select(geneID, Ecdysone.vs.PBS_5hr_carcass, Ecdysone.vs.PBS_18hr_carcass, Ecdysone.vs.PBS_5hr_gut, Ecdysone.vs.PBS_18hr_gut)
+  select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.filter)
-
-#make simple line or bar graph
-#first reorder and clean up the data you want to graph
-library(dplyr)
-row.names(myData.filter) <- myData.filter[,1]
-myData.filter <- select(myData.filter, -geneSymbols)
-myData.filter.transpose <- as.data.frame(t(myData.filter))
-treatments <- row.names(myData.filter.transpose)
-myData.filter.transpose <- mutate(myData.filter.transpose, treatments, 
-                                  genotype=c("WT", "het","KO"))
-myData.filter.transpose
 
 
 
