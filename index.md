@@ -23,7 +23,7 @@ The workshop will have two main components: 1) career perspectives from scientis
 ***Tuesday*** - Gettysburg Hotel, Lincoln Bar & Atrium
 
 Time	|	Description	|
-:------:|---------|
+:------:|:--------
 7:00pm - whenever	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
 
 
