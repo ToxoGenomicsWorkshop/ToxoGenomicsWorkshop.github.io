@@ -9,7 +9,7 @@ This is the GitHub repository for the Toxoplasma Conference RNAseq Workshop. Goa
 * learning to use the R programming language to manage and explore the data (hands-on with example dataset)
 * using ToxoDB to to interpret RNAseq data in the context of a genome browser (also hands-on)
 
-***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry our forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
+***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry out forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
 
 
 ----
