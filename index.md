@@ -3,7 +3,7 @@ layout: page
 ---
 
 ### Introduction
-This is the GitHub repository for the Toxoplasma Pre-Conference Workshop on data analysis and carrer perspectives. Goals of this workshop include:
+This is the GitHub repository for the Toxoplasma Pre-Conference Workshop on data analysis and career perspectives. Goals of this workshop include:
 
 * to interact with scientists who have pursued careers outside of the traditional academic tenure-track 
 * to gain an understanding of how RNAseq data is generated and how the raw data is processed (for practical reasons, we will discuss but not demonstrate this)
@@ -43,7 +43,7 @@ Time	|	Description	|
 ----
 
 
-### Panel discussion of alternative careers in basic research (over lunch)
+### Panelists for career discussion
 
 Name	|	affiliation	|	topic	|
 :--------|:--------|:--------
