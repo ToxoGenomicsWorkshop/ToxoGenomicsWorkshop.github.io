@@ -22,9 +22,11 @@ The workshop will have two main components: 1) career perspectives from scientis
 
 Time	|	Description	|
 :------:|:--------
-7:00pm	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
+7:00pm	|	Informal discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
 
-<br/>
+
+
+
 **Wednesday** - Gettysburg College, Science Center 200 
 
 Time	|	Description	|
