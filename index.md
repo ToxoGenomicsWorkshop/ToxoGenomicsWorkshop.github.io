@@ -12,8 +12,6 @@ This is the GitHub repository for the Toxoplasma Pre-Conference Workshop on data
 
 The workshop will have two main components: 1) career perspectives from scientists outside of the traditional tenure-track.  2) hands-on workshop on analysing RNAseq data.  The latter will be broken a morning and afternoon workshop. The morning workshop will cover RNAseq analysis in R/bioconductor (Dan Beiting); and the afternoon will focus on using the genome browser to view RNAseq data (Omar Harb).  We encourage all attendees to bring their laptops to allow participation in the hands-on exercises. 
 
-***Rationale for this Workshop***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry out forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
-
 
 ----
 
@@ -26,7 +24,7 @@ Time	|	Description	|
 :------:|:--------
 7:00pm	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
 
-
+<br/>
 **Wednesday** - Gettysburg College, Science Center 200 
 
 Time	|	Description	|
@@ -60,6 +58,8 @@ Dan Beiting	|	UPenn	|	Research-track academic careers
 
 ### Preparing for the data analysis workshop
 
+***Rationale***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry out forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
+
 **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
 
 **1. Your laptop computer**<br/> 
@@ -76,7 +76,7 @@ Dan Beiting	|	UPenn	|	Research-track academic careers
 **3. Sample dataset**<br/>
 
 * We will be analyzing RNAseq data from this [2014 PLOS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111297) published by [Kami Kim's lab](http://www.einstein.yu.edu/faculty/4972/kami-kim/).  
-* The original raw data is available on the Short Read Archive [here](http://www.ebi.ac.uk/ena/data/view/SRP045423), but you __DO NOT__ need to download this.  Instead, please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
+* The original raw data is available on the Short Read Archive [here](http://www.ebi.ac.uk/ena/data/view/SRP045423), but you __do not__ need to download this (files are huge).  Instead, please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file](materials/studyDesign.txt) that describes the design of the study
 
 **4. An analysis script**<br/>
