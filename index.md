@@ -87,7 +87,7 @@ Dan Beiting	|	UPenn	|	Research-track academic careers
 
 ### After the workshop
 
-**Although it is beyond the scope of the current workshop, there are a number of other tools -- essential in any data scientists repertoire -- that you should consider downloading and learning more about.**
+*Although it is beyond the scope of the current workshop, there are a number of other tools -- essential in any data scientists repertoire -- that you should consider downloading and learning more about.*
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system such as [Git](http://git-scm.com/downloads)
