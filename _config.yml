@@ -1,8 +1,8 @@
 # Site settings
-title: Toxoplasma Pre-conference Genomics Workshop
+title: Toxoplasma Pre-conference Workshop
 email: beiting@vet.upenn.edu and oharb@sas.upenn.edu
 description: > # this means to ignore newlines until "baseurl:"
-  The website for the Toxoplasma Genomics Workshop, taught by Dan Beiting and Omar Harb in the Summer of 2015.
+  The website for the Toxoplasma Pre-conference Workshop
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://ToxoGenomicsWorkshop.github.io" # the base hostname & protocol for your site
 twitter_username:

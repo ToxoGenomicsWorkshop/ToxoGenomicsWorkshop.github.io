@@ -20,14 +20,14 @@ The workshop will have two main components: 1) career perspectives from scientis
 
 ### Workshop Schedule
 
-***Tuesday*** - Gettysburg Hotel, Lincoln Bar & Atrium
+**Tuesday** - Gettysburg Hotel, Lincoln Bar & Atrium
 
 Time	|	Description	|
 :------:|:--------
-7:00pm - whenever	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
+7:00pm	|	Informal introductions & discussions (food and drink courtesy of the Burroughs Wellcome Fund)<br/>
 
 
-***Wednesday*** - Gettysburg College, Science Center 200 
+**Wednesday** - Gettysburg College, Science Center 200 
 
 Time	|	Description	|
 :------:|:--------
@@ -62,28 +62,32 @@ Dan Beiting	|	UPenn	|	Research-track academic careers
 
 **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
 
-***1. Your laptop computer***<br/> - Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
+**1. Your laptop computer**<br/> 
 
-***2. A "toolbox" of free software***<br/>
+* Everyone is encouraged to bring their own internet-enabled laptop equiped with either the recent Mac or Windows OS.
+
+**2. A "toolbox" of free software**<br/>
 
 * Download and install the appropriate version of the [R Programming Language](http://lib.stat.cmu.edu/R/CRAN/) for your operating system
 * Download and install the graphical user interface for R, called [RStudio](http://www.rstudio.com/products/rstudio/download/)
 * Download a text editor. I use [TextWrangler](http://www.barebones.com/products/textwrangler/) (Mac only) and [Sublime](http://www.sublimetext.com/) (Mac and PC)
 
 
-***3. Sample dataset***<br/>
+**3. Sample dataset**<br/>
 
 * We will be analyzing RNAseq data from this [2014 PLOS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111297) published by [Kami Kim's lab](http://www.einstein.yu.edu/faculty/4972/kami-kim/).  
 * The original raw data is available on the Short Read Archive [here](http://www.ebi.ac.uk/ena/data/view/SRP045423), but you __DO NOT__ need to download this.  Instead, please download the 'digital gene expression list' (DGEList) from [here](materials/DGEList)
 * In addition to the data, please download this simple [text file](materials/studyDesign.txt) that describes the design of the study
 
-***4. An analysis script*** - the R script we'll use in the workshop can be downloaded [here](materials/Toxo_RNAseq_analysis.R).
+**4. An analysis script**<br/>
+
+* the R script we'll use in the workshop can be downloaded [here](materials/Toxo_RNAseq_analysis.R).
 
 -----
 
 ### After the workshop
 
-__Although it is beyond the scope of the current workshop, there are a number of other tools -- essential in any data scientists repertoire -- that you should consider downloading and learning more about.__
+**Although it is beyond the scope of the current workshop, there are a number of other tools -- essential in any data scientists repertoire -- that you should consider downloading and learning more about.**
 
 * the network analysis platform, [Cytoscape](http://www.cytoscape.org/)
 * A version control system such as [Git](http://git-scm.com/downloads)
