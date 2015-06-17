@@ -234,87 +234,49 @@ myData %>%
   add_tooltip(tooltip)
 
 #Workshop ends here, but feel free to continue with differential gene expression below on your own time
-# ###############################################################################################
-# # use Limma to find differentially expressed genes between two or more conditions
-# ###############################################################################################
-# # fit the linear model to your filtered expression data
-# library(limma)
-# fit <- lmFit(exprs.filtered, design)
-# 
-# # set up a contrast matrix based on the pairwise comparisons of interest
-# contrast.matrix.strains <- makeContrasts(RHvsCTG = RH.tachy - CTG.tachy, RHvsPLK = RH.tachy - PLK.tachy, CTGvsPLK = CTG.tachy - PLK.tachy, levels=design)
-# contrast.matrix.stages <- makeContrasts(RH = RH.tachy - RH.brady, PLK = PLK.tachy - PLK.brady, CTG = CTG.tachy - CTG.brady, levels=design)
-# 
-# # check each contrast matrix
-# contrast.matrix.strains
-# contrast.matrix.stages
-# 
-# # extract the linear model fit for the contrast matrix that you just defined above
-# fits.strains <- contrasts.fit(fit, contrast.matrix.strains)
-# fits.stages <- contrasts.fit(fit, contrast.matrix.stages)
-# 
-# #get bayesian stats for your linear model fit
-# ebFit.strains <- eBayes(fits.strains)
-# ebFit.stages <- eBayes(fits.stages)
-# 
-# ###############################################################################################
-# # use the topTable and decideTests functions to see the differentially expressed genes
-# ###############################################################################################
-# 
-# # use topTable function to take a look at the hits
-# myTopHits <- topTable(ebFit.strains, adjust ="BH", coef=2, number=50, sort.by="logFC")
-# myTopHits
-# 
-# # use the 'decideTests' function to show Venn diagram for all diffexp genes for up to three comparisons
-# results <- decideTests(ebFit.strains, method="global", adjust.method="BH", p.value=0.01, lfc=1)
-# #stats <- write.fit(ebFit)
-# vennDiagram(results, include="both") #all pairwise comparisons on a B6 background
-# 
-# # take a look at what the results of decideTests looks like
-# results
-# 
-# # now pull out probeIDs from selected regions of the Venn diagram.  In this case, I want all genes in the venn.
-# diffGenes <- as.data.frame(which(results[,1] !=0 | results[,2] !=0 | results[,3] !=0))
-# diffGenes <- rownames(diffGenes)
-# # retrieve expression data for the probes from above
-# myData.filter <- myData %>%
-#   filter(geneID==diffGenes) %>%
-#   select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
-# head(myData.filter)
-# 
-# #combine probeIDs, gene symbols and expression data for differentially expressed genes into one file
-# write.table(cbind(diffGenes, diffData),"DiffGenes.xls", sep="\t", quote=FALSE)
-# 
-# # take a look at each expression matrix
-# dim(diffData)
+###############################################################################################
+# use Limma to find differentially expressed genes between two or more conditions
+###############################################################################################
+# fit the linear model to your filtered expression data
+library(limma)
+fit <- lmFit(exprs.filtered, design)
 
+# set up a contrast matrix based on the pairwise comparisons of interest
+contrast.matrix.strains <- makeContrasts(RHvsCTG = RH.tachy - CTG.tachy, RHvsPLK = RH.tachy - PLK.tachy, CTGvsPLK = CTG.tachy - PLK.tachy, levels=design)
+contrast.matrix.stages <- makeContrasts(RH = RH.tachy - RH.brady, PLK = PLK.tachy - PLK.brady, CTG = CTG.tachy - CTG.brady, levels=design)
 
-# ##############################################################################################################################
-# #annotate your normalized data using the organism-specific database package
-# ##############################################################################################################################
-# library(org.Tgondii.eg.db)
-# library(AnnotationDbi)
-# #If we want to know what kinds of data are retriveable via the 'select' command, look at the columns of the annotation database
-# columns(org.Tgondii.eg.db)
-# #If we want to know what kinds of fields we could potentially use as keys to query the database, use the 'keytypes' command
-# keytypes(org.Tgondii.eg.db)
-# #transform you identifiers to entrezIDs
-# myAnnot.unfiltered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.unfiltered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
-# myAnnot.filtered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.filtered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
-# resultTable.unfiltered <- merge(myAnnot.unfiltered, exprs.matrix.unfiltered, by.x="ENSEMBL", by.y=0)
-# resultTable.filtered <- merge(myAnnot.filtered, exprs.matrix.filtered, by.x="ENSEMBL", by.y=0)
-# head(resultTable.unfiltered)
-# #add more appropriate sample names as column headers
-# colnames(resultTable.unfiltered) <- sampleLabels
-# colnames(resultTable.filtered) <- sampleLabels
-# #now write these annotated datasets out
-# write.table(resultTable.unfiltered, "normalizedUnfiltered.txt", sep="\t", quote=FALSE)
-# write.table(resultTable.filtered, "normalizedFiltered.txt", sep="\t", quote=FALSE)
-# #pull out your rownames of your dataset to use as one of the filters
-# myEnsemblIDs.filtered <- rownames(rpkm.filtered)
-# myEnsemblIDs.unfiltered <- rownames(rpkm.unfiltered)
-# 
-# #transform your identifiers to entrezIDs
-# resultTable.filtered <- merge(myAnnot.filtered, rpkm.filtered, by.x="ensembl_gene_id", by.y=0)
-# resultTable.unfiltered <- merge(myAnnot.unfiltered, rpkm.unfiltered, by.x="ensembl_gene_id", by.y=0)
+# check each contrast matrix
+contrast.matrix.strains
+contrast.matrix.stages
 
+# extract the linear model fit for the contrast matrix that you just defined above
+fits.strains <- contrasts.fit(fit, contrast.matrix.strains)
+fits.stages <- contrasts.fit(fit, contrast.matrix.stages)
+
+#get bayesian stats for your linear model fit
+ebFit.strains <- eBayes(fits.strains)
+ebFit.stages <- eBayes(fits.stages)
+
+###############################################################################################
+# use the topTable and decideTests functions to see the differentially expressed genes
+###############################################################################################
+
+# use topTable function to take a look at the hits
+myTopHits <- topTable(ebFit.strains, adjust ="BH", coef=2, number=50, sort.by="logFC")
+myTopHits
+
+# use the 'decideTests' function to show Venn diagram for all diffexp genes for up to three comparisons
+results <- decideTests(ebFit.strains, method="global", adjust.method="BH", p.value=0.01, lfc=1)
+#stats <- write.fit(ebFit)
+vennDiagram(results, include="both") #all pairwise comparisons on a B6 background
+
+# take a look at what the results of decideTests looks like
+results
+
+# now pull out probeIDs from selected regions of the Venn diagram.  In this case, I want all genes in the venn.
+diffData <- normData.filtered[results[,1] !=0 | results[,2] !=0 | results[,3] !=0]
+diffData <- diffData$E
+head(diffData)
+dim(diffData)
+# print out results to a table
+write.table(results.ALL, "diffGenes_2fold.txt", sep="\t", quote=FALSE)
