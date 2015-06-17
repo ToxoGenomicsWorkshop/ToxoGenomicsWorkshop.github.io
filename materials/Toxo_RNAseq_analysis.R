@@ -3,17 +3,17 @@
 #depending on your data and interests, different parts of this script may not apply to you
 ##############################################################################################################################
 #begin by downloading the packages you'll need for this analysis
+#you'll never need to do this again
 source("http://bioconductor.org/biocLite.R")
-biocLite(pkgs=c("Rsubread", "limma", "edgeR", "ShortRead", "ggvis", "ggplot", "reshape2", "dplyr")
-?biocLite
+biocLite(pkgs=c("Rsubread", "limma", "edgeR", "ShortRead", "ggvis", "ggplot2", "reshape2", "dplyr"))
 
 #begin by loading the packages required for RNAseq data
+#packages need to be loaded in each new R session as they are needed
 library(Rsubread)
 library(limma)
 library(edgeR)
 library(ShortRead)
 options(digits=2)
-#library(Biostrings)
 
 #read in your study design file
 targets <- read.delim("studyDesign.txt", row.names=NULL)
@@ -25,10 +25,7 @@ sampleLabels <- paste(targets$strain, targets$stage, targets$rep, sep=".")
 
 #set-up your experimental design
 design <- model.matrix(~0+groups)
-#design2 <- model.matrix(~batch+groups)
-
-colnames(design) <- c("intercept", levels(groups)
-colnames(design2) <- levels(groups)
+colnames(design) <- levels(groups)
 design
 
 # ##############################################################################################################################
@@ -37,7 +34,7 @@ design
 # ##############################################################################################################################
 # myFastq <- targets$fastq
 # #collecting statistics over the files
-# qaSummary <- qa("B6-WT-untreat-rep2_S2_mergedLanes_read1.fastq", type="fastq")
+# qaSummary <- qa("SRR1542919.fastq.gz", type="fastq")
 # #create and view a report
 # browseURL(report(qaSummary))
 
@@ -77,8 +74,9 @@ save(DGEList, file="DGEList")
 ##############################################################################################################################
 #beginning of Toxo13 Genomics Workshop
 ##############################################################################################################################
-
 load("DGEList")
+#let's look at the DGEList object. What are its elements, and why might they be important?
+DGEList
 #retrieve all your gene/transcript identifiers from this DGEList object
 myGeneIDs <- DGEList$genes$GeneID
 
@@ -87,7 +85,7 @@ myGeneIDs <- DGEList$genes$GeneID
 #This will normalize based on the mean-variance relationship
 #will also generate the log2 of counts per million based on the size of each library (also a form of normalization)
 ##############################################################################################################################
-normData.unfiltered <- voom(DGEList, design2, plot=TRUE)
+normData.unfiltered <- voom(DGEList, design, plot=TRUE)
 exprs.unfiltered <- normData.unfiltered$E
 #note that because you're now working with Log2 CPM, much of your data will be negative number (log2 of number smaller than 1 is negative) 
 head(exprs.unfiltered)
@@ -95,7 +93,7 @@ head(exprs.unfiltered)
 #if you need RPKM for your unfiltered, they can generated as follows
 #Although RPKM are commonly used, not really necessary since you don't care to compare two different genes within a sample
 rpkm.unfiltered <- rpkm(DGEList, DGEList$genes$Length)
-rpkm.unfiltered <- log2(rpkm.unfiltered + 1)
+rpkm.unfiltered <- log2(rpkm.unfiltered + 0.5)
 
 ##############################################################################################################################
 #Filtering your dataset and normalize this
@@ -105,13 +103,13 @@ cpm.matrix.filtered <- rowSums(cpm(DGEList) > 10) >= 2
 DGEList.filtered <- DGEList[cpm.matrix.filtered,]
 dim(DGEList.filtered)
 
-normData.filtered <- voom(DGEList.filtered, design2, plot=TRUE)
+normData.filtered <- voom(DGEList.filtered, design, plot=TRUE)
 exprs.filtered <- normData.filtered$E
 #note that because you're now working with Log2 CPM, much of your data will be negative number (log2 of number smaller than 1 is negative) 
 head(exprs.filtered)
 
 rpkm.filtered <- rpkm(DGEList.filtered, DGEList.filtered$genes$Length) #if you prefer, can use 'cpm' instead of 'rpkm' here
-rpkm.filtered <- log2(rpkm.filtered + 1)
+rpkm.filtered <- log2(rpkm.filtered + 0.5)
 
 ###############################################################################################
 #explore your data using some standard approaches
@@ -121,6 +119,7 @@ cols.ALL <- topo.colors (n=18, alpha=1)
 hist(exprs.filtered, xlab = "log2 expression", main = "normalized data - histograms", col=cols.ALL)
 boxplot(exprs.filtered, ylab = "normalized log2 expression", main = "non-normalized data - boxplots", col=cols.ALL)
 
+#view sample relationships using a hierarchical clustering dendogram
 distance <- dist(t(exprs.filtered),method="maximum") # options for computing distance matrix are: "euclidean", "maximum", "manhattan", "canberra", "binary" or "minkowski". 
 clusters <- hclust(distance, method = "average") #options for clustering method: "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".
 plot(clusters, label=sampleLabels)
@@ -210,77 +209,84 @@ head(myData.filter)
 
 #filtering based on expression level or fold change
 myData.filter <- myData %>%
-  filter((abs(Ecdysone.vs.PBS_18hr_gut) >= 1) | (abs(Ecdysone.vs.PBS_5hr_gut) >= 1))%>%
-  select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
+  filter((abs(PLK.vs.RH.tachy) >= 1) | 
+           (abs(CTG.vs.RH.tachy) >= 1) | 
+           (abs(PLK.vs.CTG.tachy) >= 1))%>%
+  select(geneID, RH.tachy.AVG, PLK.tachy.AVG, CTG.tachy.AVG)
 head(myData.filter)
 
 #create a basic scatterplot using ggplot
-ggplot(myData, aes(x=B1a.Ph0.AVG, y=Mac.Ph0.AVG)) +
+ggplot(myData, aes(x=RH.tachy.AVG, y=CTG.tachy.AVG)) +
   geom_point(shape=1) +
   geom_point(size=4)
 
 #define a tooltip that shows gene symbol and Log2 expression data when you mouse over each data point in the plot
 tooltip <- function(data, ...) {
-  paste0("<b>","Symbol: ", data$geneSymbols, "</b><br>",
-         "B1a.Ph0.AVG: ", data$B1a.Ph0.AVG, "<br>",
-         "B1a.nonPh0.AVG: ", data$B1a.nonPh0.AVG)
+  paste0("<b>","Symbol: ", data$geneID, "</b><br>",
+         "RH.tachy.AVG: ", data$RH.tachy.AVG, "<br>",
+         "CTG.tachy.AVG: ", data$CTG.tachy.AVG)
 }
 
 #plot the interactive graphic
 myData %>% 
-  ggvis(x= ~B1a.Ph0.AVG, y= ~B1a.nonPh0.AVG, key := ~geneSymbols) %>% 
-  layer_points(fill = ~LogFC.B1a.Ph0.vs.B1a.nonPh0) %>%
+  ggvis(x= ~RH.tachy.AVG, y= ~CTG.tachy.AVG, key := ~geneID) %>% 
+  layer_points(fill = ~CTG.vs.RH.tachy) %>%
   add_tooltip(tooltip)
 
-
-###############################################################################################
-# use Limma to find differentially expressed genes between two or more conditions
-###############################################################################################
-# fit the linear model to your filtered expression data
-library(limma)
-fit <- lmFit(exprs.filtered, design)
-#fit2 <- lmFit(exprs.filtered, design2)
-
-# set up a contrast matrix based on the pairwise comparisons of interest
-contrast.matrix.strains <- makeContrasts(RHvsCTG = RH.tachy - CTG.tachy, RHvsPLK = RH.tachy - PLK.brady, CTGvsPLK = CTG.tachy - PLK.brady, levels=design)
-
-# check each contrast matrix
-contrast.matrix.strains
-
-# extract the linear model fit for the contrast matrix that you just defined above
-fits <- contrasts.fit(fit, contrast.matrix.strains)
-#get bayesian stats for your linear model fit
-ebFit <- eBayes(fits)
-
-
-###############################################################################################
-# use the topTable and decideTests functions to see the differentially expressed genes
-###############################################################################################
-
-# use topTable function to take a look at the hits
-myTopHits <- topTable(ebFit, adjust ="BH", coef=1, number=50, sort.by="logFC")
-myTopHits
-
-# use the 'decideTests' function to show Venn diagram for all diffexp genes for up to three comparisons
-results <- decideTests(ebFit, method="global", adjust.method="BH", p.value=0.01, lfc=1)
-#stats <- write.fit(ebFit)
-vennDiagram(results, include="both") #all pairwise comparisons on a B6 background
-
-
-# take a look at what the results of decideTests looks like
-results
-
-# now pull out probeIDs from selected regions of the Venn diagram.  In this case, I want all genes in the venn.
-diffGenes <- which(results[,1] !=0 | results[,2] !=0 | results[,3] !=0)
-
-# retrieve expression data for the probes from above
-diffData <- exprs.filtered[results[,1] !=0 | results[,2] !=0 | results[,3] !=0]
-
-#combine probeIDs, gene symbols and expression data for differentially expressed genes into one file
-write.table(cbind(diffGenes, diffData),"DiffGenes.xls", sep="\t", quote=FALSE)
-
-# take a look at each expression matrix
-dim(diffData)
+#Workshop ends here, but feel free to continue with differential gene expression below on your own time
+# ###############################################################################################
+# # use Limma to find differentially expressed genes between two or more conditions
+# ###############################################################################################
+# # fit the linear model to your filtered expression data
+# library(limma)
+# fit <- lmFit(exprs.filtered, design)
+# 
+# # set up a contrast matrix based on the pairwise comparisons of interest
+# contrast.matrix.strains <- makeContrasts(RHvsCTG = RH.tachy - CTG.tachy, RHvsPLK = RH.tachy - PLK.tachy, CTGvsPLK = CTG.tachy - PLK.tachy, levels=design)
+# contrast.matrix.stages <- makeContrasts(RH = RH.tachy - RH.brady, PLK = PLK.tachy - PLK.brady, CTG = CTG.tachy - CTG.brady, levels=design)
+# 
+# # check each contrast matrix
+# contrast.matrix.strains
+# contrast.matrix.stages
+# 
+# # extract the linear model fit for the contrast matrix that you just defined above
+# fits.strains <- contrasts.fit(fit, contrast.matrix.strains)
+# fits.stages <- contrasts.fit(fit, contrast.matrix.stages)
+# 
+# #get bayesian stats for your linear model fit
+# ebFit.strains <- eBayes(fits.strains)
+# ebFit.stages <- eBayes(fits.stages)
+# 
+# ###############################################################################################
+# # use the topTable and decideTests functions to see the differentially expressed genes
+# ###############################################################################################
+# 
+# # use topTable function to take a look at the hits
+# myTopHits <- topTable(ebFit.strains, adjust ="BH", coef=2, number=50, sort.by="logFC")
+# myTopHits
+# 
+# # use the 'decideTests' function to show Venn diagram for all diffexp genes for up to three comparisons
+# results <- decideTests(ebFit.strains, method="global", adjust.method="BH", p.value=0.01, lfc=1)
+# #stats <- write.fit(ebFit)
+# vennDiagram(results, include="both") #all pairwise comparisons on a B6 background
+# 
+# # take a look at what the results of decideTests looks like
+# results
+# 
+# # now pull out probeIDs from selected regions of the Venn diagram.  In this case, I want all genes in the venn.
+# diffGenes <- as.data.frame(which(results[,1] !=0 | results[,2] !=0 | results[,3] !=0))
+# diffGenes <- rownames(diffGenes)
+# # retrieve expression data for the probes from above
+# myData.filter <- myData %>%
+#   filter(geneID==diffGenes) %>%
+#   select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
+# head(myData.filter)
+# 
+# #combine probeIDs, gene symbols and expression data for differentially expressed genes into one file
+# write.table(cbind(diffGenes, diffData),"DiffGenes.xls", sep="\t", quote=FALSE)
+# 
+# # take a look at each expression matrix
+# dim(diffData)
 
 
 # ##############################################################################################################################
