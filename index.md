@@ -58,7 +58,7 @@ Dan Beiting	|	UPenn	|	Research-track academic careers
 
 ### Preparing for the data analysis workshop
 
-***Rationale***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry out forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  The workshop will be run as a hands-on tutorial using a real data-set  
+***Rationale***  Students and postdocs training in the biomedical sciences today are faced with the challenge of analyzing their own large-scale datasets, as well data being continuously made available in the public domain.  The ability to carry out forward and reverse genetic screens in _Toxoplasma_, together with the excellent genome resources for this pathogen, makes _Toxoplasma_ research particularly adept at genome-scale experiments in both the parasite and the host.  This workshop serves an a hands-on introduction to the methods and challenges assocated analzing and visualizing RNAseq data.  
 
 **There are four main things you will need in order to particpate in the hands-on aspects of the workshop**
 
@@ -98,9 +98,9 @@ Although it is beyond the scope of the current workshop, there are a number of o
 ----
 
 
-### Lecture Slides
+### Lecture Slides and additional materials
 
-After the workshop is over, you'll be able to access the lecture slides for the [panel discussion of alternative careers](), as well as for the data analysis workshop: Dan's slides [here](materials/ToxoRNAseqWorkshop.pdf) and Omar's portion [here](materials/ToxoRNAseqWorkshop.pdf).
+Dan's lecture slides on RNAseq data are [here](materials/ToxoRNAseqWorkshop.pdf).  Omar's GBrowse exercises can be downloaded [here](http://workshop.eupathdb.org/athens/2015/exercises/UGA_2015_ReadingRNAseqData_060115.pdf) along with this highres RNAseq alignment [image](http://workshop.eupathdb.org/athens/2015/exercises/ToxoDBGBrowse.png).
 
 ----
 

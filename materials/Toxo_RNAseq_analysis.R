@@ -2,6 +2,11 @@
 #This script carries out the steps involved in analysis of RNAseq data.  
 #depending on your data and interests, different parts of this script may not apply to you
 ##############################################################################################################################
+#begin by downloading the packages you'll need for this analysis
+source("http://bioconductor.org/biocLite.R")
+biocLite(pkgs=c("Rsubread", "limma", "edgeR", "ShortRead", "ggvis", "ggplot", "reshape2", "dplyr")
+?biocLite
+
 #begin by loading the packages required for RNAseq data
 library(Rsubread)
 library(limma)
@@ -20,9 +25,10 @@ sampleLabels <- paste(targets$strain, targets$stage, targets$rep, sep=".")
 
 #set-up your experimental design
 design <- model.matrix(~0+groups)
-design2 <- model.matrix(~batch+groups)
+#design2 <- model.matrix(~batch+groups)
 
-colnames(design) <- levels(groups)
+colnames(design) <- c("intercept", levels(groups)
+colnames(design2) <- levels(groups)
 design
 
 # ##############################################################################################################################
@@ -65,6 +71,13 @@ fc <- featureCounts(files=myBAM, annot.ext="ToxoDB-24_TgondiiME49.gff",
 #use the 'DGEList' function from EdgeR to make a 'digital gene expression list' object
 DGEList <- DGEList(counts=fc$counts, genes=fc$annotation)
 save(DGEList, file="DGEList")
+
+
+
+##############################################################################################################################
+#beginning of Toxo13 Genomics Workshop
+##############################################################################################################################
+
 load("DGEList")
 #retrieve all your gene/transcript identifiers from this DGEList object
 myGeneIDs <- DGEList$genes$GeneID
@@ -105,48 +118,47 @@ rpkm.filtered <- log2(rpkm.filtered + 1)
 ###############################################################################################
 #choose color scheme for graphs
 cols.ALL <- topo.colors (n=18, alpha=1)
-hist(rpkm.filtered, xlab = "log2 expression", main = "normalized data - histograms", col=cols.ALL)
-boxplot(rpkm.filtered, ylab = "normalized log2 expression", main = "non-normalized data - boxplots", col=cols.ALL)
+hist(exprs.filtered, xlab = "log2 expression", main = "normalized data - histograms", col=cols.ALL)
+boxplot(exprs.filtered, ylab = "normalized log2 expression", main = "non-normalized data - boxplots", col=cols.ALL)
 
-distance <- dist(t(rpkm.filtered),method="euclidean") # options for computing distance matrix are: "euclidean", "maximum", "manhattan", "canberra", "binary" or "minkowski". 
+distance <- dist(t(exprs.filtered),method="maximum") # options for computing distance matrix are: "euclidean", "maximum", "manhattan", "canberra", "binary" or "minkowski". 
 clusters <- hclust(distance, method = "average") #options for clustering method: "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".
 plot(clusters, label=sampleLabels)
 
-##############################################################################################################################
-#annotate your normalized data using the organism-specific database package
-##############################################################################################################################
-library(org.Tgondii.eg.db)
-library(AnnotationDbi)
-#If we want to know what kinds of data are retriveable via the 'select' command, look at the columns of the annotation database
-columns(org.Tgondii.eg.db)
-#If we want to know what kinds of fields we could potentially use as keys to query the database, use the 'keytypes' command
-keytypes(org.Tgondii.eg.db)
-#transform you identifiers to entrezIDs
-myAnnot.unfiltered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.unfiltered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
-myAnnot.filtered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.filtered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
-resultTable.unfiltered <- merge(myAnnot.unfiltered, exprs.matrix.unfiltered, by.x="ENSEMBL", by.y=0)
-resultTable.filtered <- merge(myAnnot.filtered, exprs.matrix.filtered, by.x="ENSEMBL", by.y=0)
-head(resultTable.unfiltered)
-#add more appropriate sample names as column headers
-colnames(resultTable.unfiltered) <- sampleLabels
-colnames(resultTable.filtered) <- sampleLabels
-#now write these annotated datasets out
-write.table(resultTable.unfiltered, "normalizedUnfiltered.txt", sep="\t", quote=FALSE)
-write.table(resultTable.filtered, "normalizedFiltered.txt", sep="\t", quote=FALSE)
-#pull out your rownames of your dataset to use as one of the filters
-myEnsemblIDs.filtered <- rownames(rpkm.filtered)
-myEnsemblIDs.unfiltered <- rownames(rpkm.unfiltered)
+###############################################################################################
+#Principal component analysis of the filtered data matrix
+###############################################################################################
+pca.res <- prcomp(t(exprs.filtered), scale.=F, retx=T)
+ls(pca.res)
+summary(pca.res) # Prints variance summary for all principal components.
+head(pca.res$rotation) #$rotation shows you how much each GENE influenced each PC (callled 'eigenvalues', or loadings)
+head(pca.res$x) #$x shows you how much each SAMPLE influenced each PC (called 'scores')
+plot(pca.res, las=1)
+pc.var<-pca.res$sdev^2 #sdev^2 gives you the eigenvalues
+pc.per<-round(pc.var/sum(pc.var)*100, 1)
+pc.per
 
-#transform your identifiers to entrezIDs
-resultTable.filtered <- merge(myAnnot.filtered, rpkm.filtered, by.x="ensembl_gene_id", by.y=0)
-resultTable.unfiltered <- merge(myAnnot.unfiltered, rpkm.unfiltered, by.x="ensembl_gene_id", by.y=0)
+#make some graphs to visualize your PCA result
+library(ggplot2)
+#lets first plot any two PCs against each other
+#turn your scores for each gene into a data frame
+data.frame <- as.data.frame(pca.res$x)
+ggplot(data.frame, aes(x=PC1, y=PC2, colour=factor(groups))) +
+  geom_point(size=5) +
+  theme(legend.position="right")
+
+#create a 'small multiples' chart to look at impact of each variable on each pricipal component
+library(reshape2)
+melted <- cbind(groups, melt(pca.res$x[,1:3]))
+#look at your 'melted' data
+ggplot(melted) +
+  geom_bar(aes(x=Var1, y=value, fill=groups), stat="identity") +
+  facet_wrap(~Var2)
 
 
-#this script walks thorough some basic data wrangling for organizing expression data spreadsheets and ends with
-#how to create publication quality graphics from transcriptomic data generated (regardless of platform used)
-#to start this script you need a file with all your expression data and some non-redundant identifiers as row names (usually gene symbols)
-#you also need a study design file
-
+###############################################################################################
+#Cleaning up and graphing your data
+###############################################################################################
 #for creating graphics, we'll use the ggplot2 and ggvis packages which employ a 'grammar of graphics' approach
 #load the packages
 library(ggplot2)
@@ -186,6 +198,7 @@ myData.sort <- myData %>%
   select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.sort)
 
+
 #use dplyr "filter" and "select" functions to pick out genes of interest (filter)
 #and again display only columns of interest (select)
 #filter based on specific Toxo gene IDs
@@ -194,11 +207,108 @@ myData.filter <- myData %>%
   select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.filter)
 
+
 #filtering based on expression level or fold change
 myData.filter <- myData %>%
   filter((abs(Ecdysone.vs.PBS_18hr_gut) >= 1) | (abs(Ecdysone.vs.PBS_5hr_gut) >= 1))%>%
   select(geneID, PLK.tachy.AVG, PLK.brady.AVG)
 head(myData.filter)
 
+#create a basic scatterplot using ggplot
+ggplot(myData, aes(x=B1a.Ph0.AVG, y=Mac.Ph0.AVG)) +
+  geom_point(shape=1) +
+  geom_point(size=4)
 
+#define a tooltip that shows gene symbol and Log2 expression data when you mouse over each data point in the plot
+tooltip <- function(data, ...) {
+  paste0("<b>","Symbol: ", data$geneSymbols, "</b><br>",
+         "B1a.Ph0.AVG: ", data$B1a.Ph0.AVG, "<br>",
+         "B1a.nonPh0.AVG: ", data$B1a.nonPh0.AVG)
+}
+
+#plot the interactive graphic
+myData %>% 
+  ggvis(x= ~B1a.Ph0.AVG, y= ~B1a.nonPh0.AVG, key := ~geneSymbols) %>% 
+  layer_points(fill = ~LogFC.B1a.Ph0.vs.B1a.nonPh0) %>%
+  add_tooltip(tooltip)
+
+
+###############################################################################################
+# use Limma to find differentially expressed genes between two or more conditions
+###############################################################################################
+# fit the linear model to your filtered expression data
+library(limma)
+fit <- lmFit(exprs.filtered, design)
+#fit2 <- lmFit(exprs.filtered, design2)
+
+# set up a contrast matrix based on the pairwise comparisons of interest
+contrast.matrix.strains <- makeContrasts(RHvsCTG = RH.tachy - CTG.tachy, RHvsPLK = RH.tachy - PLK.brady, CTGvsPLK = CTG.tachy - PLK.brady, levels=design)
+
+# check each contrast matrix
+contrast.matrix.strains
+
+# extract the linear model fit for the contrast matrix that you just defined above
+fits <- contrasts.fit(fit, contrast.matrix.strains)
+#get bayesian stats for your linear model fit
+ebFit <- eBayes(fits)
+
+
+###############################################################################################
+# use the topTable and decideTests functions to see the differentially expressed genes
+###############################################################################################
+
+# use topTable function to take a look at the hits
+myTopHits <- topTable(ebFit, adjust ="BH", coef=1, number=50, sort.by="logFC")
+myTopHits
+
+# use the 'decideTests' function to show Venn diagram for all diffexp genes for up to three comparisons
+results <- decideTests(ebFit, method="global", adjust.method="BH", p.value=0.01, lfc=1)
+#stats <- write.fit(ebFit)
+vennDiagram(results, include="both") #all pairwise comparisons on a B6 background
+
+
+# take a look at what the results of decideTests looks like
+results
+
+# now pull out probeIDs from selected regions of the Venn diagram.  In this case, I want all genes in the venn.
+diffGenes <- which(results[,1] !=0 | results[,2] !=0 | results[,3] !=0)
+
+# retrieve expression data for the probes from above
+diffData <- exprs.filtered[results[,1] !=0 | results[,2] !=0 | results[,3] !=0]
+
+#combine probeIDs, gene symbols and expression data for differentially expressed genes into one file
+write.table(cbind(diffGenes, diffData),"DiffGenes.xls", sep="\t", quote=FALSE)
+
+# take a look at each expression matrix
+dim(diffData)
+
+
+# ##############################################################################################################################
+# #annotate your normalized data using the organism-specific database package
+# ##############################################################################################################################
+# library(org.Tgondii.eg.db)
+# library(AnnotationDbi)
+# #If we want to know what kinds of data are retriveable via the 'select' command, look at the columns of the annotation database
+# columns(org.Tgondii.eg.db)
+# #If we want to know what kinds of fields we could potentially use as keys to query the database, use the 'keytypes' command
+# keytypes(org.Tgondii.eg.db)
+# #transform you identifiers to entrezIDs
+# myAnnot.unfiltered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.unfiltered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
+# myAnnot.filtered <- select(org.Tgondii.eg.db, keys=rownames(exprs.matrix.filtered), keytype="ENSEMBL", columns=c("ENTREZID", "SYMBOL", "GENENAME"))
+# resultTable.unfiltered <- merge(myAnnot.unfiltered, exprs.matrix.unfiltered, by.x="ENSEMBL", by.y=0)
+# resultTable.filtered <- merge(myAnnot.filtered, exprs.matrix.filtered, by.x="ENSEMBL", by.y=0)
+# head(resultTable.unfiltered)
+# #add more appropriate sample names as column headers
+# colnames(resultTable.unfiltered) <- sampleLabels
+# colnames(resultTable.filtered) <- sampleLabels
+# #now write these annotated datasets out
+# write.table(resultTable.unfiltered, "normalizedUnfiltered.txt", sep="\t", quote=FALSE)
+# write.table(resultTable.filtered, "normalizedFiltered.txt", sep="\t", quote=FALSE)
+# #pull out your rownames of your dataset to use as one of the filters
+# myEnsemblIDs.filtered <- rownames(rpkm.filtered)
+# myEnsemblIDs.unfiltered <- rownames(rpkm.unfiltered)
+# 
+# #transform your identifiers to entrezIDs
+# resultTable.filtered <- merge(myAnnot.filtered, rpkm.filtered, by.x="ensembl_gene_id", by.y=0)
+# resultTable.unfiltered <- merge(myAnnot.unfiltered, rpkm.unfiltered, by.x="ensembl_gene_id", by.y=0)
 
