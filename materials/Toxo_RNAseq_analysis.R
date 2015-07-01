@@ -7,7 +7,7 @@
 source("http://bioconductor.org/biocLite.R")
 biocLite(pkgs=c("Rsubread", "limma", "edgeR", "ShortRead", "ggvis", "ggplot2", "reshape2", "dplyr"))
 
-#begin by loading the packages required for RNAseq data
+y#begin by loading the packages required for RNAseq data
 #packages need to be loaded in each new R session as they are needed
 library(Rsubread)
 library(limma)
@@ -94,6 +94,7 @@ head(exprs.unfiltered)
 #Although RPKM are commonly used, not really necessary since you don't care to compare two different genes within a sample
 rpkm.unfiltered <- rpkm(DGEList, DGEList$genes$Length)
 rpkm.unfiltered <- log2(rpkm.unfiltered + 0.5)
+dim(rpkm.unfiltered)
 
 ##############################################################################################################################
 #Filtering your dataset and normalize this
@@ -109,13 +110,13 @@ exprs.filtered <- normData.filtered$E
 head(exprs.filtered)
 
 rpkm.filtered <- rpkm(DGEList.filtered, DGEList.filtered$genes$Length) #if you prefer, can use 'cpm' instead of 'rpkm' here
-rpkm.filtered <- log2(rpkm.filtered + 0.5)
+rpkm.filtered <- log2(rpkm.filtered + 1)
 
 ###############################################################################################
 #explore your data using some standard approaches
 ###############################################################################################
 #choose color scheme for graphs
-cols.ALL <- topo.colors (n=18, alpha=1)
+cols.ALL <- topo.colors(n=18, alpha=1)
 hist(exprs.filtered, xlab = "log2 expression", main = "normalized data - histograms", col=cols.ALL)
 boxplot(exprs.filtered, ylab = "normalized log2 expression", main = "non-normalized data - boxplots", col=cols.ALL)
 

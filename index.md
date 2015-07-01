@@ -100,7 +100,7 @@ Although it is beyond the scope of the current workshop, there are a number of o
 
 ### Lecture Slides and additional materials
 
-Dan's lecture slides on RNAseq data are [here](materials/ToxoRNAseqWorkshop.pdf).  Omar's GBrowse exercises can be downloaded [here](http://workshop.eupathdb.org/athens/2015/exercises/UGA_2015_ReadingRNAseqData_060115.pdf) along with this highres RNAseq alignment [image](http://workshop.eupathdb.org/athens/2015/exercises/ToxoDBGBrowse.png).
+Dan's lecture slides on RNAseq data are [here](materials/LectureSlides.pdf).  Omar's GBrowse exercises can be downloaded [here](http://workshop.eupathdb.org/athens/2015/exercises/UGA_2015_ReadingRNAseqData_060115.pdf) along with this highres image of a GBrowse view with various RNAseq and ChIP-seq tracks of experimental evidence [image](http://workshop.eupathdb.org/athens/2015/exercises/ToxoDBGBrowse.png).
 
 ----
 
